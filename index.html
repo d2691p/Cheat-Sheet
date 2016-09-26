@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dev Cheat Sheet</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link href="css/prism.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="css/custom.css" />
+
+</head>
+<body>
+
+<!-- SideBar -->
+<div class="container-fluid">
+	<div class="row">
+		<div id="sidebar" class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+            <li><a href="#javascript">JavaScript</a></li>
+            <li><a href="#oop">OOP</a></li>
+            <li><a href="#react">React</a></li>
+            <li><a href="#angular">Angular</a></li>
+            <li><a href="#redux">Redux</a></li>
+            <li><a href="#node">Node</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="#mongo">Mongo</a></li>
+            <li><a href="#express">Express</a></li>
+            <li><a href="#sass">SASS</a></li>
+          </ul>
+        </div>
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        	<h1>Cheat Sheet</h1>
+        	<div class="row">
+        		<div id="javascript" class="col-sm-12">
+	        		<h2>JavaScript</h2>
+	        		<h4>'this' keyword</h4>
+	        		<p><strong>Rule 1. Global Context:</strong> When 'this' is not inside of a declared object</p>
+<pre class="line-numbers"><code class="language-javascript">console.log(this) //this === window (global)
+
+function variableInThis(){
+	//since the value of this is the window, all we are doing is
+	//creating a global variable
+	this.person = 'Dom'
+}
+
+console.log(person) // Dom
+</code></pre>
+					<h4>Strict Mode</h4>
+					<p>ES5 notation, strict mode prevents the value of 'this', when inside of a function is undefined, NOT the global object. Preventing global variables from being created.</p>
+<pre class="line-numbers"><code class="language-javascript">"use strict"
+console.log(this) //this === window (global)
+
+function variableInThis(){
+	//since the value of this is the window, all we are doing is
+	//creating a global variable
+	this.person = 'Dom'
+}
+
+console.log(person) // Dom
+</code></pre>
+
+				<p><strong>Rule 2. Implicit/Object:</strong> When 'this' is inside of a declared object</p>
+<pre class="line-numbers"><code class="language-javascript">//strict mode does NOT make a difference
+
+var person = {
+	firstName: "Dom",
+	sayHi: function(){
+		return "Hi " + this.firstName
+	},
+	context: function(){
+		return this === person
+	},
+	sibling: {
+		sayHello: function(){
+			return "Hello " + this.firstName;
+		},
+		context: function(){
+			return this === person;
+		}
+	}
+}
+
+person.sayHi()  // "Hi Dom"
+person.context() // true - the value of 'this' will always refer to closest parent Object
+
+//Nested values with 'this'
+person.sibling.sayHello() // Hello undefined
+person.sibling.context() // false
+</code></pre>
+				<p><strong>Rule 3. Explicit Binding:</strong> Defining the context of 'this', using call, apply or bind</p>
+<pre class="line-numbers"><code class="language-javascript">var person = {
+	firstName: "Dom",
+	sayHi: function(){
+		return "Hi " + this.firstName
+	},
+	context: function(){
+		return this === person
+	},
+	sumNumbers: function(a,b,c,d){
+		return this.firstName + " calculated the result " + (a+b+c+d);
+	},
+	sibling: {
+		sayHello: function(){
+			return "Hello " + this.firstName;
+		},
+		context: function(){
+			return this === person;
+		}
+	}
+}
+
+var holly = {
+	firstName: "Holly"
+}
+
+//call - params: call(thisArg, a, b, c, d)  - invoked immediately
+person.sibling.sayHello.call(person) // Hello "Dom"
+person.sibling.context.call(person) // true
+person.sayHi.call(holly) // Hi Holly
+
+//apply - params: call(thisArg, [a, b, c, d])  - invoked immediately
+person.sayHi.apply(holly) // Hi Holly
+person.sumNumbers(1,2,3,4) // Dom just calculated 10
+person.sumNumbers.call(holly, 1,2,3,4) // Holly just calculated 10
+person.sumNumbers.apply(holly, [1,2,3,10]) // Holly just calculated 16
+
+//bind - params: call(thisArg, a, b, c, d)  - NOT invoked immediately, returns a function
+var hollySum = person.sumNumbers.bind(holly, 1, 2, 3, 4) // function (){}...
+hollySum() // Holly just calculated 10
+
+//We do not need to know all the arguments up front
+var hollySum2 = person.sumNumbers.bind(holly, 1, 2) // function(){}...
+hollySum(3,4) // Holly just calculated 10
+</code></pre>
+        		
+				<p><strong>Rule 4. The 'new' keyword:</strong> Set the context of the keyword 'this' using the 'new' keyword.</p>
+<pre class="line-numbers"><code class="language-javascript">function Person(firstName, lastName){
+	this.firstName = firstName
+	this.LastName = lastName
+}
+
+var dom = new Person("Dom", "Painter");
+
+dom.firstName 	// "Dom"
+dom.lastName 	// "Painter"
+</code></pre>
+				</div>
+        		<div id="oop" class="col-sm-12">
+	        		<h2>Object Oriented Programming - OOP</h2>
+	        		<h4>Definition</h4>
+	        		<ul><li>A programming model based around the idea of objects</li>
+	        			<li>Objects are constructed from classes, objects created from classes are called 'instances'</li>
+	        			<li>Classes should be made to be abstract and modular</li>
+	        		</ul>
+<pre class="line-numbers"><code class="language-javascript">//Constructor Functions (capitalised function)
+function Car(make, model, colour){
+	this.make 	= make;		//Attaching properties to the keyword 'this'
+	this.model 	= model;
+	this.colour = colour;
+	this.description = function(){
+		console.log("Car Make: " + this.make + " / Car Model: " + this.model + " / Car Colour: " + this.colour);
+	}
+	this.numWheels = 4;
+}
+
+// 'new' keyword - creates a new object, sets 'this' to empty object, returns 'this' at end of function
+var firstCar = new Car("seat", "ibiza", "black");
+firstCar.make   // 	seat
+firstCar.model  //	ibiza	
+firstCar.colour //	black
+
+//Reusable code, DRY
+firstCar.description() // Car Make: seat / Car Model: ibiza / Car Colour: black
+
+//Using call to remove duplication by borrowing code from Car function
+function Motorbike(make, model, colour){
+	Car.call(this, make, model, colour)
+	this.numWheels = 2;
+
+	//OR, using apply with keyword 'arguments'
+	Car.apply(this, arguments);
+	this.numWheels = 2;
+}
+</code></pre>
+        		</div>
+
+        		<div id="mongo" class="col-sm-12">
+	        		<h2>Mongo</h2>
+	        		<h4>Mongo Shell Commands</h4>
+	        		
+<pre class="line-numbers"><code class="language-bash">mongod		# 	Starts mongo process to enable mongo to be used
+mongo 		# 	Opens mongo shell, similar to javascript console for debugging and testing
+help		# 	Shows list of basic features of mongo
+showdbs		# 	Show database names that are not empty (including defaults)
+use 		# 	Tells mongo to use a specific db, if it does not exist,
+			# 		it will create the database e.g. use example-database
+insert		# 	Add a new element to db e.g. db.people.insert({name: "Dom", gender: "Male"})
+find 		#	Find an element e.g. db.people.find() - returns all elements
+find({})	#	Find a specific element e.g. db.people.find({name: "Dom"})
+findOne	  	#	Find one element e.g. db.people.findOne() - returns 1 element
+update 		#	Update the value on a record e.g. db.people.update({name: "Dom"}, {$set: {Name: "Dominick" 
+			#		Age: "25"})
+remove 		#	Remove an element e.g. db.people.remove({name: "Dom"})
+</code></pre>
+        		</div>
+        	</div>
+        </div>
+	</div>
+</div>
+
+
+
+<!-- Scripts -->
+	<script src="js/prism.js"></script>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="js/actions.js"></script>
+</body>
+</html>
