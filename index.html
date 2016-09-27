@@ -23,18 +23,30 @@
             <li><a href="#node">Node</a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="#mongo">Mongo</a></li>
+            <li><a href="#newmongo">Mongo</a></li>
             <li><a href="#express">Express</a></li>
             <li><a href="#sass">SASS</a></li>
           </ul>
         </div>
 
+<!-- Content -->
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         	<h1>Cheat Sheet</h1>
         	<div class="row">
-        		<div id="javascript" class="col-sm-12">
-	        		<h2>JavaScript</h2>
-	        		<h4>'this' keyword</h4>
+
+        	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        		<div class="panel panel-default">
+		            <div class="panel-heading" role="tab" id="headingOne">
+		                <h4 class="panel-title">
+		                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#javascript" aria-expanded="true" aria-controls="javascript">
+		                        <i class="more-less glyphicon glyphicon-plus"></i>
+		                        <strong>JavaScript</strong>
+		                    </a>
+		                </h4>
+		            </div>
+		            <div id="javascript" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+		                <div class="panel-body">
+		                      <h4>'this' keyword</h4>
 	        		<p><strong>Rule 1. Global Context:</strong> When 'this' is not inside of a declared object</p>
 <pre class="line-numbers"><code class="language-javascript">console.log(this) //this === window (global)
 
@@ -46,7 +58,7 @@ function variableInThis(){
 
 console.log(person) // Dom
 </code></pre>
-					<h4>Strict Mode</h4>
+<h4>Strict Mode</h4>
 					<p>ES5 notation, strict mode prevents the value of 'this', when inside of a function is undefined, NOT the global object. Preventing global variables from being created.</p>
 <pre class="line-numbers"><code class="language-javascript">"use strict"
 console.log(this) //this === window (global)
@@ -145,10 +157,21 @@ var dom = new Person("Dom", "Painter");
 dom.firstName 	// "Dom"
 dom.lastName 	// "Painter"
 </code></pre>
-				</div>
-        		<div id="oop" class="col-sm-12">
-	        		<h2>Object Oriented Programming - OOP</h2>
-	        		<h4>Definition</h4>
+		                </div>
+		            </div>
+		        </div>
+        		<div class="panel panel-default">
+		            <div class="panel-heading" role="tab" id="headingOne">
+		                <h4 class="panel-title">
+		                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#oop" aria-expanded="true" aria-controls="oop">
+		                        <i class="more-less glyphicon glyphicon-plus"></i>
+		                        <strong>Object Oriented Programming - OOP</strong>
+		                    </a>
+		                </h4>
+		            </div>
+		            <div id="oop" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+		                <div class="panel-body">
+		                <h4>Definition</h4>
 	        		<ul><li>A programming model based around the idea of objects</li>
 	        			<li>Objects are constructed from classes, objects created from classes are called 'instances'</li>
 	        			<li>Classes should be made to be abstract and modular</li>
@@ -183,27 +206,324 @@ function Motorbike(make, model, colour){
 	this.numWheels = 2;
 }
 </code></pre>
-        		</div>
-
-        		<div id="mongo" class="col-sm-12">
-	        		<h2>Mongo</h2>
-	        		<h4>Mongo Shell Commands</h4>
+		                </div>
+		            </div>
+		        </div>
+		        <div class="panel panel-default">
+		            <div class="panel-heading" role="tab" id="headingOne">
+		                <h4 class="panel-title">
+		                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#mongo" aria-expanded="true" aria-controls="mongo">
+		                        <i class="more-less glyphicon glyphicon-plus"></i>
+		                        <strong>Mongo</strong>
+		                    </a>
+		                </h4>
+		            </div>
+		            <div id="mongo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+		                <div class="panel-body">
+		                	<h4>Mongo Shell Commands</h4>
 	        		
 <pre class="line-numbers"><code class="language-bash">mongod		# 	Starts mongo process to enable mongo to be used
+
 mongo 		# 	Opens mongo shell, similar to javascript console for debugging and testing
+
 help		# 	Shows list of basic features of mongo
-showdbs		# 	Show database names that are not empty (including defaults)
-use 		# 	Tells mongo to use a specific db, if it does not exist,
-			# 		it will create the database e.g. use example-database
-insert		# 	Add a new element to db e.g. db.people.insert({name: "Dom", gender: "Male"})
-find 		#	Find an element e.g. db.people.find() - returns all elements
-find({})	#	Find a specific element e.g. db.people.find({name: "Dom"})
-findOne	  	#	Find one element e.g. db.people.findOne() - returns 1 element
-update 		#	Update the value on a record e.g. db.people.update({name: "Dom"}, {$set: {Name: "Dominick" 
-			#		Age: "25"})
-remove 		#	Remove an element e.g. db.people.remove({name: "Dom"})
+
+show dbs	# 	Show database names that are not empty (including defaults)
+
+use 		# 	Tells mongo to use a specific db, if it does not exist, it will create the database 
+	use example-database
+
+insert		# 	Add a new element to db
+	db.people.insert({name: "Dom", gender: "Male"})
+
+find 		#	Find an element 
+	db.people.find() - returns all elements.
+
+find({})	#	Find a specific element 
+	db.people.find({name: "Dom"})
+
+findOne	  	#	Find one element 
+	db.people.findOne() - returns 1 element
+
+update 		#	Update the value on a record
+	 db.people.update({name: "Dom"}, {$set: {Name: "Dominick", Age: "25"})
+
+remove 		#	Remove an element
+	db.people.remove({name: "Dom"})
+
+drop		#	Drops or removes completely the collection
+	db.collection.drop()
+
+sort		# 	Return results in an order 
+	db.collection.find().sort({name: 1}); (1 ascending, -1 descending)
+
+limit		#	limit return results to number (n = number of results)
+	db.colleciton.find(...).limit(n)
+
 </code></pre>
-        		</div>
+		                </div>
+		            </div>
+		        </div>
+		        <div class="panel panel-default">
+		            <div class="panel-heading" role="tab" id="headingOne">
+		                <h4 class="panel-title">
+		                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#restful" aria-expanded="true" aria-controls="restful">
+		                        <i class="more-less glyphicon glyphicon-plus"></i>
+		                        <strong>RESTful Routing</strong>
+		                    </a>
+		                </h4>
+		            </div>
+		            <div id="restful" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+		                <div class="panel-body">
+		                	<h4>REST - Mapping between HTTP routes and CRUD (Create, Read, Update, Destroy)</h4>
+		                	<table class="table table-striped">
+		                		<thead>
+		                			<tr>
+		                				<th>ACTION</th>
+		                				<th>HTTP METHOD</th>
+		                				<th>URL</th>
+		                				<th>MONGOOSE METHOD</th>
+		                				<th>DESCRIPTION</th>
+		                			</tr>
+		                		</thead>
+		                		<tbody>
+		                			<tr>
+		                				<td>INDEX</td>
+		                				<td>GET</td>
+		                				<td>/dogs</td>
+		                				<td>Dog.find()</td>
+		                				<td>Display a list of all dogs</td>
+		                			</tr>
+		                			<tr>
+		                				<td>NEW</td>
+		                				<td>GET</td>
+		                				<td>/dogs/new</td>
+		                				<td>N/A</td>
+		                				<td>Displays a form to create new dogs</td>
+		                			</tr>
+		                			<tr>
+		                				<td>CREATE</td>
+		                				<td>POST</td>
+		                				<td>/dogs</td>
+		                				<td>Dog.create()</td>
+		                				<td>Add new dog to DB</td>
+		                			</tr>
+		                			<tr>
+		                				<td>SHOW</td>
+		                				<td>GET</td>
+		                				<td>/dogs/:id</td>
+		                				<td>Dog.findById()</td>
+		                				<td>Shows information about one dog with ID</td>
+		                			</tr>
+		                			<tr>
+		                				<td>EDIT</td>
+		                				<td>GET</td>
+		                				<td>/dogs/:id/edit</td>
+		                				<td>Dog.findById()</td>
+		                				<td>Show edit for one dog</td>
+		                			</tr>
+		                			<tr>
+		                				<td>UPDATE</td>
+		                				<td>PUT/PATCH</td>
+		                				<td>/dogs/:id</td>
+		                				<td>Dog.findByIdAndUpdate()</td>
+		                				<td>Update a particular dog, then redirect somewhere</td>
+		                			</tr>
+		                			<tr>
+		                				<td>DESTROY</td>
+		                				<td>DELETE</td>
+		                				<td>/dogs/:id</td>
+		                				<td>Dog.findByIdAndRemove()</td>
+		                				<td>Delete a particular dog, then redirect somewhere</td>
+		                			</tr>
+		                		</tbody>
+		                	</table>
+		                </div>
+		            </div>
+		        </div>
+		        <div class="panel panel-default">
+		            <div class="panel-heading" role="tab" id="headingOne">
+		                <h4 class="panel-title">
+		                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#react" aria-expanded="true" aria-controls="react">
+		                        <i class="more-less glyphicon glyphicon-plus"></i>
+		                        <strong>React</strong>
+		                    </a>
+		                </h4>
+		            </div>
+		            <div id="react" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+		                <div class="panel-body">
+		                	<h4>Thinking in React</h4>
+		                	<p>Take a look at the React Docs - <a href="https://facebook.github.io/react/docs/thinking-in-react.html">Thinking in React</a>
+		                	</p>
+		                	<h5>State definition: <em>'state', an object that determines how that component renders and behaves. In other words, 'state' is what allows you to create components that are dynamic and interactive.</em></h5>
+		                	<h4>Boilerplate / JSX</h4>
+	        				<p>index.js</p>
+<pre class="line-numbers"><code class="language-jsx">//Create a new component that produces some HTML
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+//ES5
+const App = function(){
+	return &lt;div&gt;Hi!&lt;/div&gt;;
+}
+
+//ES6 Syntax
+const App = () => {
+	return &lt;div&gt;Hi!&lt;/div&gt;;
+}
+
+//Take the generated HTML and put it on the page / DOM
+ReactDOM.render(&lt;App /&gt;, document.getElementById('app'));
+
+//Note: inside of index.html there will be a div with an id 'app'
+</code></pre>
+							<h4>Components</h4>
+<pre class="line-numbers"><code class="language-jsx">//search_bar.js
+import React from 'react';
+
+//Functional Component
+const SearchBar = () => {
+	return (
+		&lt;input /&gt;;
+	);
+}
+
+export default SearchBar;
+
+//Note: this means we need to import and use SearchBar in index.js
+
+import SearchBar from './components/search_bar'
+...
+return (
+	&lt;div&gt;
+		&lt;SearchBar /&gt;
+	&lt;/div&gt;;
+);
+</code></pre>
+
+								<h4>Functional Components</h4>
+								<p>Consists of <strong>ONE</strong> function, info goes in and JSX comes out.
+								<h4>Class Component</h4>
+								<p>When a component is required to hold data or be aware of itself once rendered.</p>
+<pre class="line-numbers"><code class="language-jsx">//Class based Component
+import React, { Component } from 'react';
+
+class SearchBar extends Component{			//Component gives extra functionality for a class based component
+	render() {			//Must have a defined render method/function
+		return(
+			&lt;input /&gt;;
+		);
+	}
+}
+
+export default SearchBar;
+</code></pre>
+								<h4>Handling User Input</h4>
+<pre class="line-numbers"><code class="language-jsx">//Class based Component
+import React, { Component } from 'react';
+
+class SearchBar extends Component{			//Component gives extra functionality for a class based component
+	constructor(props){						//Defining state within a class component
+		super(props);						//Call parent method
+
+		this.state = { searchTerm: '' };	//Default state of user defined property searchTerm
+	}
+
+	render() {			//Must have a defined render method/function
+		return(
+			&lt;div&gt;
+				&lt;input onChange={this.onInputChange} /&gt;;		//onChange is a react defined property
+				&lt;p&gt;Value of the input: {this.state.searchTerm}&lt;/p&gt; //Print the value of searchTerm
+			&lt;/div&gt;
+		);
+	}
+
+	onInputChange(event){
+		this.setState({ seachTerm: event.target.value });		//Update the state when a user inputs
+	}
+}
+
+export default SearchBar;
+</code></pre>								
+								<h4>React Lifecycle Methods</h4>
+								<table class="table table-striped">
+									<thead>
+										<tr>
+											<th>NAME</th>
+											<th>CALLED FOR</th>
+											<th>RECEIVES CONTEXT</th>
+											<th>setState() TRIGGERS AND UPDATE</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>componentWillMount</td>
+											<td>invoked once, before initial render</td>
+											<td>no</td>
+											<td>no</td>
+										</tr>
+										<tr>
+											<td>componentDidMount</td>
+											<td>invoked once (client-only), after initial 'render'</td>
+											<td>no</td>
+											<td>no</td>
+										</tr>
+										<tr>
+											<td>componentWillReceiveProps</td>
+											<td>invoked when component is receiving props, not for initial 'render'</td>
+											<td>yes</td>
+											<td>no</td>
+										</tr>
+										<tr>
+											<td>shouldComponentUpdate</td>
+											<td>invoked before rendering with new props, not for initial 'render'</td>
+											<td>yes</td>
+											<td>yes</td>
+										</tr>
+										<tr>
+											<td>componentWillUpdate</td>
+											<td>invoked immediately before rendering with new props or state, not for initial 'render'</td>
+											<td>yes</td>
+											<td>n/a</td>
+										</tr>
+										<tr>
+											<td>componentDidUpdate</td>
+											<td>invoked immediately after DOM updates, not for initial 'render'
+</td>
+											<td>no</td>
+											<td>yes</td>
+										</tr>
+										<tr>
+											<td>componentWillUnmount</td>
+											<td>invoked immediately before a component is unmounted from the DOM</td>
+											<td>no</td>
+											<td>n/a</td>
+										</tr>
+									</tbody>
+								</table>
+
+
+		                </div>
+		            </div>
+		        </div>
+		        <div class="panel panel-default">
+		            <div class="panel-heading" role="tab" id="headingOne">
+		                <h4 class="panel-title">
+		                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#redux" aria-expanded="true" aria-controls="redux">
+		                        <i class="more-less glyphicon glyphicon-plus"></i>
+		                        <strong>Redux</strong>
+		                    </a>
+		                </h4>
+		            </div>
+		            <div id="redux" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+		                <div class="panel-body">
+		                	<h4>React/Redux Tinder Example</h4>
+		                	<p>The below diagram demonstrates a design view of the app Tinder. The data contained in the application (orange) is handled by Redux, whereas the views (in blue) are handled by React</p>
+		                	<img class="image-center" src="img/redux-tinder-example.png">
+		                </div>
+		            </div>
+		        </div>
+			</div> <!-- Panel group-->
         	</div>
         </div>
 	</div>
