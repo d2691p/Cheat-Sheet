@@ -175,6 +175,7 @@ dom.lastName 	// "Painter"
 	        		<ul><li>A programming model based around the idea of objects</li>
 	        			<li>Objects are constructed from classes, objects created from classes are called 'instances'</li>
 	        			<li>Classes should be made to be abstract and modular</li>
+	        			<li>Building applications with objects allows us to adopt some valuable techniques, namely, Inheritance (objects can inherit features from other objects), Polymorphism (objects can share the same interface - how they are accessed and used-while their underlying implementation of the interface may differ), and Encapsulation (each object is responsible for specific tasks).</li>
 	        		</ul>
 <pre class="line-numbers"><code class="language-javascript">//Constructor Functions (capitalised function)
 function Car(make, model, colour){
@@ -187,7 +188,7 @@ function Car(make, model, colour){
 	this.numWheels = 4;
 }
 
-// 'new' keyword - creates a new object, sets 'this' to empty object, returns 'this' at end of function
+// 'new' keyword - creates a new object, sets 'this' to empty object, returns 'this' at end of function. firstCar is an instance of Car object
 var firstCar = new Car("seat", "ibiza", "black");
 firstCar.make   // 	seat
 firstCar.model  //	ibiza	
@@ -206,7 +207,116 @@ function Motorbike(make, model, colour){
 	this.numWheels = 2;
 }
 </code></pre>
+		                	<h4>Encapsulation</h4>
+							<p>Encapsulation refers to enclosing all the functionalities of an object within that object. Therefore the object’s internal workings (its methods and properties) are hidden from the rest of the application. This allows us to abstract or localize specific set of functionalities on objects.</p>
+							<h4>Inheritance</h4>
+							<p>Inheritance refers to an object being able to inherit methods and properties from a parent object.</p>
+
 		                </div>
+		            </div>
+		        </div>
+		        <div class="panel panel-default">
+		            <div class="panel-heading" role="tab" id="headingOne">
+		                <h4 class="panel-title">
+		                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#designpatterns" aria-expanded="true" aria-controls="designpatterns">
+		                        <i class="more-less glyphicon glyphicon-plus"></i>
+		                        <strong>Design Patterns</strong>
+		                    </a>
+		                </h4>
+		            </div>
+		            <div id="designpatterns" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+		                <div class="panel-body">
+			                <h4>Definition</h4>
+		        			<p>Design patterns are advanced object-oriented solutions to commonly occurring software problems. Patterns provide solution to writing maintainable, readable and reusable code.</p>
+		        			<h4>Module Design Pattern</h4>
+		        			<p>JavaScript modules are code that is independent from other components. Mobules are also known as JavaScript classes. Classes allows <strong>encapsulation</strong>, which protects the state and behaviours being accessed from other classes. Modules can use closures, which allow private access to functions and variables.</p>
+<pre class="line-numbers"><code class="language-javascript">var updateHTML = (function(){
+	//declaration of PRIVATE functions and variables
+	//Code outside of this closure is unable to access these variables/functions
+	
+	var html = 'Hello'
+	var changeHTML = function (){
+		var element = document.getElementById('#attribute');
+
+		element.innerHTML = html;
+
+		return {		//Returns an object
+			//declatation of PUBLIC functions and variables
+			callUpdateHtml: function(){
+				changeHTML();
+				console.log(html);
+			}
+		}
+	}
+})();
+
+updateHTML.callUpdateHtml();	// Outputs: 'Hello'
+console.log(updateHTML.html);	// undefined
+</code></pre>
+						<h4>Prototype Design Pattern</h4>
+						<p>Prototype design pattern relies on the JavaScript prototypical inheritance. The prototype model is used mainly for creating objects in performance-intensive situations. These objects that are created, are clones of the original object.</p>
+						<p>To clone an object, a constructor must exist to instantiate the first object. Next, by using the keyword prototype variables and methods bind to the object’s structure.</p>
+		                
+<pre class="line-numbers"><code class="language-javascript">//Constructor allows the creation of a single Car Object. New Car Objects will retain the states initialised in the constructor.
+var Car = function() {
+  this.numWheels    = 4;
+  this.manufacturer = 'Mercedes';
+  this.make         = 'A Class';
+}
+
+Car.prototype = {
+  go: function() {
+    // Rotate wheels
+  },
+  stop: function() {
+    // Apply brake pads
+  }
+}
+</code></pre>
+							<h4>Singleton Design Pattern</h4>
+							<p>A Singleton only allows a single instantiation, but many instances of the same object. The Singleton restricts access from creating multiple objects, once the first object has been created.</p>
+							<p>Example: Office printer - there is only one printer, but 10 people want to use it. Therefore 10 people share the one printer, they share the same resource.</p>
+<pre class="line-numbers"><code class="language-javascript">var printer = (function () {
+  var printerInstance;
+
+  function create () {		//The create method is private
+    function print() {
+      // underlying printer mechanics
+    }
+
+    function turnOn() {
+      // warm up
+      // check for paper
+    }
+
+    return {
+      // public + private states and behaviors
+      print: print,
+      turnOn: turnOn
+    };
+  }
+
+  return {
+    getInstance: function() {		//The getInstance method is public, allowing employees
+      if(!printerInstance) {		//to generate an instance of the printer
+        printerInstance = create();
+      }
+      return printerInstance;
+    }
+  };
+
+  function Singleton () {
+    if(!printerInstance) {
+      printerInstance = intialize();
+    }
+  };
+})();
+
+
+//Generating an instance of the printer:
+var officePrinter = printer.getInstance();
+</code></pre>							
+						</div>
 		            </div>
 		        </div>
 		        <div class="panel panel-default">
