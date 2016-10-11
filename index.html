@@ -852,6 +852,64 @@ export default connect(mapStateToProps, mapDispatchToProps)(MovieList);
 		                </div>
 		            </div>
 		        </div>
+		<div class="panel panel-default">
+		            <div class="panel-heading" role="tab" id="headingOne">
+		                <h4 class="panel-title">
+		                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#node" aria-expanded="true" aria-controls="node">
+		                        <i class="more-less glyphicon glyphicon-plus"></i>
+		                        <strong>Node JS</strong>
+		                    </a>
+		                </h4>
+		            </div>
+		            <div id="node" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+		                <div class="panel-body">
+							<h4>Useful libraries, functions</h4>
+							<ul>
+								<li><strong>yargs</strong> - Command line tool builder. Parsing arguments and generating a UI.</li>
+<pre class="line-numbers"><code class="language-javascript">//Setup yargs to have a --location or -l argument
+var argv = require('yargs')
+	.option('location',{
+		alias: 'l',
+		demand: false,
+		describe: 'Location to fetch the weather for',
+		type: 'string'
+	})
+	.help('help')
+	.argv;
+
+//Accessing arguments passed in
+if(typeof argv.l === 'string' &amp;&amp; argv.length > 0){
+	console.log('location: ' + argv.l);
+}else{
+	console.log('No location provided!');
+}
+</code></pre>								
+								<li><strong>Encoding URLs</strong> - Translating a string into a URL. E.g: www.example.com/a%20test is the translated version of 'a test'. To encode, use function <strong>encodeURIComponent(string)</strong>.</li>
+								<li><strong>Promises</strong> - A promise represents the eventual result of an asynchronous operation. It is a placeholder into which the successful result value or reason for failure will materialize. A function you can wait on for it to resolve or reject. Promises provide a simpler alternative for executing, composing, and managing asynchronous operations when compared to traditional callback-based approaches. </li>
+<pre class="line-numbers"><code class="language-javascript">//Promise example
+function doSomething(data){
+	return new Promise(function (resolve, reject){			//Create a new promise to either be resolved or rejected
+		resolve('all working!');
+		reject({
+			error: 'An error occured'
+		});
+	});
+}
+
+//Calling a promise and then sending it a function
+doSomething('some data').then(function(data){
+	console.log(data);		//If working then the promise will resolve, it will log 'all working!'
+}, function(error){
+	console.log(error);		//If an error occurs, the promise will reject, logging 'An error occured'
+});
+</code></pre>
+							</ul>
+		                </div>
+		            </div>
+		        </div>
+
+
+
 			</div> <!-- Panel group-->
         	</div>
         </div>
