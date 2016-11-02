@@ -19,7 +19,8 @@ pre{
     font-size:0.9em;
     margin-bottom: 20px !important;
     margin-top: 20px !important;
-    max-height:500px;
+    resize:both;
+    height:400px;
 }
 
 

@@ -29,39 +29,23 @@
 		                      <h4>'this' keyword</h4>
 	        		<p><strong>Rule 1. Global Context:</strong> When 'this' is not inside of a declared object</p>
 <pre class="line-numbers"><code class="language-javascript">console.log(this) //this === window (global)
-
 function variableInThis(){
 	//since the value of this is the window, all we are doing is
 	//creating a global variable
 	this.person = 'Dom'
 }
-
-console.log(person) // Dom
+variableInThis();
+console.log(this.person) // Dom
 </code></pre>
-<h4>Strict Mode</h4>
-					<p>ES5 notation, strict mode prevents the value of 'this', when inside of a function is undefined, NOT the global object. Preventing global variables from being created.</p>
-<pre class="line-numbers"><code class="language-javascript">"use strict"
-console.log(this) //this === window (global)
-
-function variableInThis(){
-	//since the value of this is the window, all we are doing is
-	//creating a global variable
-	this.person = 'Dom'
-}
-
-console.log(person) // Dom
-</code></pre>
-
 				<p><strong>Rule 2. Implicit/Object:</strong> When 'this' is inside of a declared object</p>
 <pre class="line-numbers"><code class="language-javascript">//strict mode does NOT make a difference
-
 var person = {
 	firstName: "Dom",
 	sayHi: function(){
-		return "Hi " + this.firstName
+		return "Hi " + this.firstName;
 	},
 	context: function(){
-		return this === person
+		return this === person;
 	},
 	sibling: {
 		sayHello: function(){
@@ -119,11 +103,11 @@ person.sumNumbers.apply(holly, [1,2,3,10]) // Holly just calculated 16
 
 //bind - params: call(thisArg, a, b, c, d)  - NOT invoked immediately, returns a function
 var hollySum = person.sumNumbers.bind(holly, 1, 2, 3, 4) // function (){}...
-hollySum() // Holly just calculated 10
+hollySum(); // Holly just calculated 10
 
 //We do not need to know all the arguments up front
 var hollySum2 = person.sumNumbers.bind(holly, 1, 2) // function(){}...
-hollySum(3,4) // Holly just calculated 10
+hollySum(3,4); // Holly just calculated 10
 </code></pre>
         		
 				<p><strong>Rule 4. The 'new' keyword:</strong> Set the context of the keyword 'this' using the 'new' keyword.</p>
@@ -155,7 +139,7 @@ dom.lastName 	// "Painter"
 		        			<ul><li>A programming model based around the idea of objects</li>
 		        			<li>Objects are constructed from classes, objects created from classes are called 'instances'</li>
 		        			<li>Classes should be made to be abstract and modular</li>
-		        			<li>Building applications with objects allows us to adopt some valuable techniques, namely, Inheritance (objects can inherit features from other objects), Polymorphism (objects can share the same interface - how they are accessed and used-while their underlying implementation of the interface may differ), and Encapsulation (each object is responsible for specific tasks).</li>
+		        			<li>Building applications with objects allows us to adopt some valuable techniques, namely, <em>Inheritance</em> (objects can inherit features from other objects), <em>Polymorphism</em> (objects can share the same interface - how they are accessed and used-while their underlying implementation of the interface may differ), and <em>Encapsulation</em> (each object is responsible for specific tasks).</li>
 		        			</ul>
 <pre class="line-numbers"><code class="language-javascript">//Constructor Functions (capitalised function)
 function Car(make, model, colour){
@@ -217,21 +201,34 @@ User.prototype = {				//Overwrite prototype property with object literal and add
 }
 
 // A User
-firstUser = new User("Richard", "Richard@examnple.com"); 
-firstUser.changeEmail("RichardB@examnple.com");
+firstUser = new User("Dom", "dom@example.com"); 
+firstUser.changeEmail("dominick@example.com");		//New Emailed Saved: dominick@example.com
 firstUser.saveScore(15);
 firstUser.saveScore(10); 
 
-firstUser.showNameAndScores(); //Richard Scores: 15,10
+firstUser.showNameAndScores(); //Dom Scores: 15,10
 
 // Another User
-secondUser = new User("Peter", "Peter@examnple.com");
+secondUser = new User("Peter", "Peter@example.com");
 secondUser.saveScore(18);
 secondUser.showNameAndScores(); //Peter Scores: 18
 </code></pre>
 							<h4>Inheritance - Code Reuse Patterns</h4>
 							<p>Inheritance refers to an object being able to inherit methods (functions in JS) and properties from a parent object.</p>
 							<p>Objects can make use of their inherited functionalities and still have their own specialized functionalities.</p>
+<pre class="line-numbers"><code class="language-javascript">//Function used to inherit parent properties onto child objects
+function inheritPrototype(childObject, parentObject) {
+	//Copy the properties and methods from the parentObject onto the childObject
+	//The copyOfParent object now has everything the parentObject has 
+    var copyOfParent = Object.create(parentObject.prototype);
+
+	//Then set the constructor of this new object to point to the childObject.
+    copyOfParent.constructor = childObject;
+
+	//Then set the childObject prototype to copyOfParent, so that the childObject can in turn inherit everything from copyOfParent (from parentObject)
+    childObject.prototype = copyOfParent;
+ }
+</code></pre>
 <pre class="line-numbers"><code class="language-javascript">// The Question function is the parent for all other question objects
 // All question objects will inherit from this Question constructor
 
@@ -306,7 +303,7 @@ DragDropQuestion.prototype.displayQuestion = function(){
 							<p>The following code will simply test the inheritance code, in a real application, a Quiz constructor that would be the main application would create and launch the quiz.</p>
 <pre class="line-numbers"><code class="language-javascript">// Initialize some questions and add them to an array
 var allQuestions = [
-	new MultipleChoiceQuestion("Who is Prime Minister of England?", ["Obama", "Blair", "Brown", "Cameron"], 3),
+	new MultipleChoiceQuestion("Who is Prime Minister of England?", ["Obama", "May", "Brown", "Cameron"], 3),
 
 	new MultipleChoiceQuestion("What is the Capital of Brazil?", ["Sao Paulo", "Rio de Janeiro", "Brasília"], 2),
 
@@ -338,7 +335,7 @@ allQuestions.forEach(function (eachQuestion)  {
 		        			<p>JavaScript modules are code that is independent from other components. Mobules are also known as JavaScript classes. Classes allows <strong>encapsulation</strong>, which protects the state and behaviours being accessed from other classes. Modules can use closures, which allow private access to functions and variables.</p>
 <pre class="line-numbers"><code class="language-javascript">var updateHTML = (function(){
 	//declaration of PRIVATE functions and variables
-	//Code outside of this closure is unable to access these variables/functions
+	//Code outside of this closure are unable to access these variables/functions
 	
 	var html = 'Hello'
 	var changeHTML = function (){
@@ -361,7 +358,7 @@ console.log(updateHTML.html);	// undefined
 </code></pre>
 						<h4>Prototype Design Pattern</h4>
 						<p>Prototype design pattern relies on the JavaScript prototypical inheritance. The prototype model is used mainly for creating objects in performance-intensive situations. These objects that are created, are clones of the original object.</p>
-						<p>To clone an object, a constructor must exist to instantiate the first object. Next, by using the keyword prototype variables and methods bind to the object’s structure.</p>
+						<p>To clone an object, a constructor must exist to instantiate the first object. Next, by using the keyword prototype variables and methods bind to the object's structure.</p>
 		                
 <pre class="line-numbers"><code class="language-javascript">//Constructor allows the creation of a single Car Object. New Car Objects will retain the states initialised in the constructor.
 var Car = function() {
